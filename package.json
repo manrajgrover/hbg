@@ -2,7 +2,9 @@
   "name": "hbg",
   "version": "1.0.0",
   "description": "CLI for generating boilerplate for coding competitions",
-  "main": "cli.js",
+  "bin": {
+    "hbg": "cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
