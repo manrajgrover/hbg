@@ -28,5 +28,12 @@
   "bugs": {
     "url": "https://github.com/ManrajGrover/hacker-boilerplate-generator/issues"
   },
-  "homepage": "https://github.com/ManrajGrover/hacker-boilerplate-generator#readme"
+  "homepage": "https://github.com/ManrajGrover/hacker-boilerplate-generator#readme",
+  "dependencies": {
+    "chalk": "1.1.3",
+    "fs": "0.0.2",
+    "mv": "2.1.1",
+    "ora": "0.2.3",
+    "yargs": "4.8.0"
+  }
 }
