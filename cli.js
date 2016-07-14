@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-14 20:14:25
+* @Last Modified time: 2016-07-14 20:19:14
 */
 
 'use strict';
@@ -18,7 +18,7 @@ const config = require('./config');
 const argv = yargs
   .usage('$0 <command>')
   .command('gen', 'Generate boilerplate', (yargs) => {
-    var argv = yargs
+    const argv = yargs
       .usage('Usage: $0 gen <options>')
       .demand(['q'])
       .alias('p', 'path').describe('p', 'Path where to be created')
@@ -26,7 +26,7 @@ const argv = yargs
       .alias('q', 'questions').describe('q', 'Number of questions')
       .example('$0')
       .argv;
-    console.log(p, l, q);
+    let { p, l, q} = argv;
   })
   .command('config', 'Change config file', (yargs) => {
   	
