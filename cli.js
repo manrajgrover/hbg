@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-10 20:22:30
+* @Last Modified time: 2016-07-14 20:11:21
 */
 
 'use strict';
@@ -22,7 +22,7 @@ const argv = yargs
       .usage('Usage: $0 gen <options>')
       .demand(['q'])
       .alias('p', 'path').describe('p', 'Path where to be created')
-      .alias('l', 'language').describe('l', 'Language. Change `config` for default.')
+      .alias('l', 'language').describe('l', 'Language. Change `config` for default')
       .alias('q', 'questions').describe('q', 'Number of questions')
       .example('$0')
       .argv;
