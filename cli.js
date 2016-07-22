@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-14 20:19:14
+* @Last Modified time: 2016-07-22 22:12:55
 */
 
 'use strict';
@@ -24,12 +24,32 @@ const argv = yargs
       .alias('p', 'path').describe('p', 'Path where to be created')
       .alias('l', 'language').describe('l', 'Language. Change `config` for default')
       .alias('q', 'questions').describe('q', 'Number of questions')
-      .example('$0')
+      .example('sudo $0 gen') // To-do
       .argv;
-    let { p, l, q} = argv;
+    let { p, l, q } = argv;
+
   })
   .command('config', 'Change config file', (yargs) => {
-  	
+  	const argv = yargs
+      .usage('Usage: $0 config <options>')
+      .example('$0') // To-do
+      .argv;
+    const questions = [{
+        type: 'input',
+        name: 'path',
+        message: 'Enter default path <leave blank incase unchanged>'
+      } , {
+        type: 'input',
+        name: 'default_lang',
+        message: 'Enter default language code <leave blank incase unchanged>'
+      } , {
+        type: 'input',
+        name: 'questions',
+        message: 'Enter default number of questions <leave blank incase unchanged>'
+    }];
+    inquirer.prompt(questions).then((answers) => {
+      
+    });
   })
   .help('h')
   .alias('h', 'help')
