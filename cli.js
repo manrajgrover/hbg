@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-23 21:16:30
+* @Last Modified time: 2016-07-23 21:17:32
 */
 
 'use strict';
@@ -28,6 +28,10 @@ const getPath = (folderPath, name) => {
  */
 const getExtension = (lang) => {
   return '';
+}
+
+const validLang = (lang) => {
+  
 }
 
 const generate = (folderPath, ques, lang) => {
