@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-23 20:34:51
+* @Last Modified time: 2016-07-23 21:16:30
 */
 
 'use strict';
@@ -15,6 +15,7 @@ const ora = require('ora');
 const chalk = require('chalk');
 const config = require('./config');
 const path = require('path');
+const template = require('./template');
 
 const getPath = (folderPath, name) => {
   return path.resolve(folderPath, name);
@@ -62,6 +63,16 @@ const argv = yargs
       .alias('l', 'lang').describe('l', 'Language')
       .example('$0') // To-do
       .argv;
+    let { t, l } = argv;
+    if( validLang( l ) ) {
+      let obj = template;
+      let data = fs.readFileSync(getPath(process.cwd(),t), 'utf8');
+      obj[l] = data;
+      fs.writeFileSync(getPath(__dirname,'template.json'), JSON.stringify(obj, null, 2), 'utf8');
+    }
+    else{
+      console.log('Language entered is not supported.');
+    }
   })
   .command('config', 'Change config file', (yargs) => {
     const argv = yargs
