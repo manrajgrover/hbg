@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-23 21:17:32
+* @Last Modified time: 2016-07-23 23:25:16
 */
 
 'use strict';
@@ -17,6 +17,10 @@ const config = require('./config');
 const path = require('path');
 const template = require('./template');
 
+
+/**
+ * Returns full path of file
+ */
 const getPath = (folderPath, name) => {
   return path.resolve(folderPath, name);
 }
@@ -30,10 +34,17 @@ const getExtension = (lang) => {
   return '';
 }
 
+
+/**
+ * Returns if language is valid or not
+ */
 const validLang = (lang) => {
-  
+
 }
 
+/**
+ * Generates boiler plate 
+ */
 const generate = (folderPath, ques, lang) => {
   let files = [ques.toString() + getExtension(lang), 'input.txt', 'output.txt'];
   fs.mkdirSync(folderPath);
