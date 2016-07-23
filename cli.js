@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-23 20:34:19
+* @Last Modified time: 2016-07-23 20:34:51
 */
 
 'use strict';
@@ -59,7 +59,7 @@ const argv = yargs
       .usage('Usage: $0 add <options>')
       .demand(['t', 'l'])
       .alias('t', 'template').describe('t', 'Path to the template')
-      .alias('l', 'lang').describe('q', 'Language')
+      .alias('l', 'lang').describe('l', 'Language')
       .example('$0') // To-do
       .argv;
   })
