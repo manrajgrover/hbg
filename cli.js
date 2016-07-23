@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-23 19:46:10
+* @Last Modified time: 2016-07-23 20:34:19
 */
 
 'use strict';
@@ -43,8 +43,8 @@ const argv = yargs
     const argv = yargs
       .usage('Usage: $0 gen <options>')
       .demand(['q'])
-      .alias('l', 'language').describe('l', 'Language. Change `config` for default')
-      .alias('q', 'questions').describe('q', 'Number of questions')
+      .alias('l', 'lang').describe('l', 'Language. Change `config` for default')
+      .alias('q', 'ques').describe('q', 'Number of questions')
       .example('sudo $0 gen') // To-do
       .argv;
     let { l, q } = argv;
@@ -54,19 +54,28 @@ const argv = yargs
       generate(folderPath, i, l);
     }
   })
+  .command('add', 'Add default template', (yargs) => {
+    const argv = yargs
+      .usage('Usage: $0 add <options>')
+      .demand(['t', 'l'])
+      .alias('t', 'template').describe('t', 'Path to the template')
+      .alias('l', 'lang').describe('q', 'Language')
+      .example('$0') // To-do
+      .argv;
+  })
   .command('config', 'Change config file', (yargs) => {
-  	const argv = yargs
-      .usage('Usage: $0 config <options>')
+    const argv = yargs
+      .usage('Usage: $0 config')
       .example('$0') // To-do
       .argv;
     const questions = [{
       type: 'input',
       name: 'default_lang',
-      message: 'Enter default language code <leave blank incase unchanged>'
+      message: 'Enter default language code <Leave blank in case unchanged>'
     } , {
       type: 'input',
       name: 'questions',
-      message: 'Enter default number of questions <Leave blank incase unchanged>'
+      message: 'Enter default number of questions <Leave blank in case unchanged>'
     }];
     inquirer.prompt(questions).then((answers) => {
 
