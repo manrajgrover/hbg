@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-23 19:04:12
+* @Last Modified time: 2016-07-23 19:13:13
 */
 
 'use strict';
@@ -24,12 +24,12 @@ const getExtension = (lang) => {
 
 }
 
-const generate = (folderPath, question) => {
-  let filePath = getPath(folderPath, question.toString());
-  let inputPath = getPath(folderPath, 'input.txt');
-  let outputPath = getPath(folderPath, 'output.txt');
+const generate = (folderPath, question, lang) => {
+  let files = [question.toString() + getExtension(lang), 'input.txt', 'output.txt'];
   fs.mkdirSync(folderPath);
-  fs.writeFileSync(i.toString());
+  for(file in files) {
+    fs.writeFileSync(getPath(folderPath, file), '', 'utf8');
+  }
 }
 
 const argv = yargs
@@ -43,10 +43,9 @@ const argv = yargs
       .example('sudo $0 gen') // To-do
       .argv;
     let { l, q } = argv;
-    let ext = getExtension(l);
-    for(let i = 1;i <= q; i++) {
+    for(let i = 1; i <= q; i++) {
       let folderPath = path.resolve(__dirname, i.toString());
-
+      generate(folderPath, i, l);
     }
   })
   .command('config', 'Change config file', (yargs) => {
