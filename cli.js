@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-23 19:13:13
+* @Last Modified time: 2016-07-23 19:37:15
 */
 
 'use strict';
@@ -20,15 +20,20 @@ const getPath = (folderPath, name) => {
   return path.resolve(folderPath, name);
 }
 
+/**
+ * Returns file extension of param
+ * @param  {string} lang [Language name]
+ * @return {string}      [Extension of param language]
+ */
 const getExtension = (lang) => {
-
+  return '';
 }
 
 const generate = (folderPath, question, lang) => {
   let files = [question.toString() + getExtension(lang), 'input.txt', 'output.txt'];
   fs.mkdirSync(folderPath);
-  for(file in files) {
-    fs.writeFileSync(getPath(folderPath, file), '', 'utf8');
+  for(let i = 0; i<files.length; i++) {
+    fs.writeFileSync(getPath(folderPath, files[i]), '', 'utf8');
   }
 }
 
@@ -44,7 +49,7 @@ const argv = yargs
       .argv;
     let { l, q } = argv;
     for(let i = 1; i <= q; i++) {
-      let folderPath = path.resolve(__dirname, i.toString());
+      let folderPath = getPath(process.cwd(), i.toString());
       generate(folderPath, i, l);
     }
   })
