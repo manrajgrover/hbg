@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-24 22:17:01
+* @Last Modified time: 2016-07-24 22:18:14
 */
 
 'use strict';
@@ -32,7 +32,7 @@ const getPath = (folderPath, name) => {
  * @return {string}      [Extension of param language]
  */
 const getExtension = (lang) => {
-  return '';
+  return languages[lang];
 }
 
 
@@ -40,7 +40,7 @@ const getExtension = (lang) => {
  * Returns if language is valid or not
  */
 const validLang = (lang) => {
-  return languages[lang];
+  return languages[lang] == undefined ? false : true;
 }
 
 /**
