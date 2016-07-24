@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-24 22:15:17
+* @Last Modified time: 2016-07-24 22:17:01
 */
 
 'use strict';
@@ -40,7 +40,7 @@ const getExtension = (lang) => {
  * Returns if language is valid or not
  */
 const validLang = (lang) => {
-
+  return languages[lang];
 }
 
 /**
@@ -101,13 +101,12 @@ const argv = yargs
     if (argv.list){
       const spinner = ora('Getting languages').start();
       spinner.stop();
-      let extensions = languages.extensions;
       let table = new Table({
         head: ['Language', 'File Extension'],
         colWidths: [20, 20]
       });
-      for(let name in extensions){
-        table.push([name, extensions[name]]);
+      for(let name in languages){
+        table.push([name, languages[name]]);
       }
       console.log(table.toString());
     }
