@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-24 22:10:51
+* @Last Modified time: 2016-07-24 22:15:17
 */
 
 'use strict';
@@ -15,6 +15,7 @@ const ora = require('ora');
 const chalk = require('chalk');
 const config = require('./config');
 const path = require('path');
+const Table = require('cli-table');
 const template = require('./template');
 const languages = require('./languages');
 
@@ -100,20 +101,15 @@ const argv = yargs
     if (argv.list){
       const spinner = ora('Getting languages').start();
       spinner.stop();
-      /*var table = new Table({
-        head: ['Language', 'Code', 'Number'],
-        colWidths: [20, 20, 20]
+      let extensions = languages.extensions;
+      let table = new Table({
+        head: ['Language', 'File Extension'],
+        colWidths: [20, 20]
       });
-      for(let name in names){
-        table.push([names[name], name, codes[name]]);
+      for(let name in extensions){
+        table.push([name, extensions[name]]);
       }
       console.log(table.toString());
-      end();
-      } else {
-        spinner.stop();
-        console.log(chalk.red(error));
-        openIssue();
-      }*/
     }
     else {
       const questions = [{
