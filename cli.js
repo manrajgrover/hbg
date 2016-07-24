@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-24 22:18:14
+* @Last Modified time: 2016-07-24 22:33:51
 */
 
 'use strict';
@@ -65,11 +65,15 @@ const argv = yargs
       .example('sudo $0 gen') // To-do
       .argv;
     let { l, q } = argv;
-    l = l == undefined ? config['lang'] : l;
-
-    for(let i = 1; i <= q; i++) {
-      let folderPath = getPath(process.cwd(), i.toString());
-      generate(folderPath, i, l);
+    let lang = l == undefined ? config['lang'] : l;
+    if(validLang(l)){
+      for(let i = 1; i <= q; i++) {
+        let folderPath = getPath(process.cwd(), i.toString());
+        generate(folderPath, i, lang);
+      }
+    }
+    else{
+      console.log(chalk.red("Not a valid languege. Please run `hbg config -l` to get the list of language code"));
     }
   })
   .command('add', 'Add default template', (yargs) => {
