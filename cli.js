@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-24 22:36:56
+* @Last Modified time: 2016-07-24 23:57:00
 */
 
 'use strict';
@@ -18,6 +18,8 @@ const path = require('path');
 const Table = require('cli-table');
 const template = require('./template');
 const languages = require('./languages');
+
+const LANG_ERR = 'Not a valid languege. Please run `hbg config -l` to get the list of languages.';
 
 /**
  * Returns full path of file
@@ -62,7 +64,7 @@ const argv = yargs
       .demand(['q'])
       .alias('l', 'lang').describe('l', 'Language. Change `config` for default')
       .alias('q', 'ques').describe('q', 'Number of questions')
-      .example('sudo $0 gen') // To-do
+      .example('sudo $0 gen -l cpp -q 4') // To-do
       .argv;
     let { l, q } = argv;
     let lang = (l == undefined ? config['lang'] : l).toLowerCase();
@@ -73,7 +75,7 @@ const argv = yargs
       }
     }
     else{
-      console.log(chalk.red("Not a valid languege. Please run `hbg config -l` to get the list of language code"));
+      console.log(chalk.red(LANG_ERR));
     }
   })
   .command('add', 'Add default template', (yargs) => {
@@ -85,14 +87,15 @@ const argv = yargs
       .example('$0') // To-do
       .argv;
     let { t, l } = argv;
-    if( validLang( l ) ) {
+    let lang = (l == undefined ? config['lang'] : l).toLowerCase();
+    if(validLang(lang)) {
       let obj = template;
-      let data = fs.readFileSync(getPath(process.cwd(),t), 'utf8');
-      obj[l] = data;
-      fs.writeFileSync(getPath(__dirname,'template.json'), JSON.stringify(obj, null, 2), 'utf8');
+      let data = fs.readFileSync(getPath(process.cwd(), t), 'utf8');
+      obj[lang] = data;
+      fs.writeFileSync(getPath(__dirname, 'template.json'), JSON.stringify(obj, null, 2), 'utf8');
     }
     else{
-      console.log('Language entered is not supported.');
+      console.log(chalk.red(LANG_ERR));
     }
   })
   .command('config', 'Change config file', (yargs) => {
@@ -104,7 +107,6 @@ const argv = yargs
 
     if (argv.list){
       const spinner = ora('Getting languages').start();
-      spinner.stop();
       let table = new Table({
         head: ['Language', 'File Extension'],
         colWidths: [20, 20]
@@ -112,6 +114,7 @@ const argv = yargs
       for(let name in languages){
         table.push([name, languages[name]]);
       }
+      spinner.stop();
       console.log(table.toString());
     }
     else {
