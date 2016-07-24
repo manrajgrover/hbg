@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-23 23:25:16
+* @Last Modified time: 2016-07-24 20:50:58
 */
 
 'use strict';
@@ -92,20 +92,48 @@ const argv = yargs
   .command('config', 'Change config file', (yargs) => {
     const argv = yargs
       .usage('Usage: $0 config')
+      .alias('l', 'list').describe('l', 'List language and their code').boolean('l')
       .example('$0') // To-do
       .argv;
-    const questions = [{
-      type: 'input',
-      name: 'default_lang',
-      message: 'Enter default language code <Leave blank in case unchanged>'
-    } , {
-      type: 'input',
-      name: 'questions',
-      message: 'Enter default number of questions <Leave blank in case unchanged>'
-    }];
-    inquirer.prompt(questions).then((answers) => {
 
-    });
+    if (argv.list){
+      const spinner = ora('Getting languages').start();
+      request(LANG_URL, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+          var languages = JSON.parse(body), 
+              names = languages.languages.names, 
+              codes = languages.languages.codes;
+          spinner.stop();
+          var table = new Table({
+            head: ['Language', 'Code', 'Number'],
+            colWidths: [20, 20, 20]
+          });
+          for(let name in names){
+            table.push([names[name], name, codes[name]]);
+          }
+          console.log(table.toString());
+          end();
+        } else {
+          spinner.stop();
+          console.log(chalk.red(error));
+          openIssue();
+        }
+      });
+    }
+    else {
+      const questions = [{
+        type: 'input',
+        name: 'default_lang',
+        message: 'Enter default language code <Leave blank in case unchanged>'
+      } , {
+        type: 'input',
+        name: 'questions',
+        message: 'Enter default number of questions <Leave blank in case unchanged>'
+      }];
+      inquirer.prompt(questions).then((answers) => {
+
+      });
+    }
   })
   .help('h')
   .alias('h', 'help')
