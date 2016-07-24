@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-24 20:50:58
+* @Last Modified time: 2016-07-24 22:10:51
 */
 
 'use strict';
@@ -16,7 +16,7 @@ const chalk = require('chalk');
 const config = require('./config');
 const path = require('path');
 const template = require('./template');
-
+const languages = require('./languages');
 
 /**
  * Returns full path of file
@@ -65,6 +65,7 @@ const argv = yargs
       .argv;
     let { l, q } = argv;
     l = l == undefined ? config['lang'] : l;
+
     for(let i = 1; i <= q; i++) {
       let folderPath = getPath(process.cwd(), i.toString());
       generate(folderPath, i, l);
@@ -98,27 +99,21 @@ const argv = yargs
 
     if (argv.list){
       const spinner = ora('Getting languages').start();
-      request(LANG_URL, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          var languages = JSON.parse(body), 
-              names = languages.languages.names, 
-              codes = languages.languages.codes;
-          spinner.stop();
-          var table = new Table({
-            head: ['Language', 'Code', 'Number'],
-            colWidths: [20, 20, 20]
-          });
-          for(let name in names){
-            table.push([names[name], name, codes[name]]);
-          }
-          console.log(table.toString());
-          end();
-        } else {
-          spinner.stop();
-          console.log(chalk.red(error));
-          openIssue();
-        }
+      spinner.stop();
+      /*var table = new Table({
+        head: ['Language', 'Code', 'Number'],
+        colWidths: [20, 20, 20]
       });
+      for(let name in names){
+        table.push([names[name], name, codes[name]]);
+      }
+      console.log(table.toString());
+      end();
+      } else {
+        spinner.stop();
+        console.log(chalk.red(error));
+        openIssue();
+      }*/
     }
     else {
       const questions = [{
