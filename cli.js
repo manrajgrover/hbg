@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-24 22:33:51
+* @Last Modified time: 2016-07-24 22:36:56
 */
 
 'use strict';
@@ -47,7 +47,7 @@ const validLang = (lang) => {
  * Generates boiler plate 
  */
 const generate = (folderPath, ques, lang) => {
-  let files = [ques.toString() + getExtension(lang), 'input.txt', 'output.txt'];
+  let files = [ques.toString() +'.'+ getExtension(lang), 'input.txt', 'output.txt'];
   fs.mkdirSync(folderPath);
   for(let i = 0; i<files.length; i++) {
     fs.writeFileSync(getPath(folderPath, files[i]), '', 'utf8');
@@ -65,8 +65,8 @@ const argv = yargs
       .example('sudo $0 gen') // To-do
       .argv;
     let { l, q } = argv;
-    let lang = l == undefined ? config['lang'] : l;
-    if(validLang(l)){
+    let lang = (l == undefined ? config['lang'] : l).toLowerCase();
+    if(validLang(lang)){
       for(let i = 1; i <= q; i++) {
         let folderPath = getPath(process.cwd(), i.toString());
         generate(folderPath, i, lang);
