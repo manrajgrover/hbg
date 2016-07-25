@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-24 23:57:00
+* @Last Modified time: 2016-07-25 11:10:44
 */
 
 'use strict';
@@ -66,8 +66,8 @@ const argv = yargs
       .alias('q', 'ques').describe('q', 'Number of questions')
       .example('sudo $0 gen -l cpp -q 4') // To-do
       .argv;
-    let { l, q } = argv;
-    let lang = (l == undefined ? config['lang'] : l).toLowerCase();
+    let { q } = argv;
+    let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
     if(validLang(lang)){
       for(let i = 1; i <= q; i++) {
         let folderPath = getPath(process.cwd(), i.toString());
@@ -82,12 +82,12 @@ const argv = yargs
     const argv = yargs
       .usage('Usage: $0 add <options>')
       .demand(['t', 'l'])
-      .alias('t', 'template').describe('t', 'Path to the template')
+      .alias('t', 'template').describe('t', 'Path to the template file')
       .alias('l', 'lang').describe('l', 'Language')
-      .example('$0') // To-do
+      .example('$0 add -t test/template.cpp -l cpp') // To-do
       .argv;
-    let { t, l } = argv;
-    let lang = (l == undefined ? config['lang'] : l).toLowerCase();
+    let { t } = argv;
+    let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
     if(validLang(lang)) {
       let obj = template;
       let data = fs.readFileSync(getPath(process.cwd(), t), 'utf8');
