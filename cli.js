@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-25 13:04:28
+* @Last Modified time: 2016-07-25 13:23:26
 */
 
 'use strict';
@@ -32,16 +32,6 @@ const getPath = (folderPath, name) => {
 }
 
 /**
- * Returns file extension of param
- * @param  {string} lang [Language name]
- * @return {string}      [Extension of param language]
- */
-const getExtension = (lang) => {
-  return languages[lang];
-}
-
-
-/**
  * Returns if language is valid or not
  */
 const validLang = (lang) => {
@@ -52,7 +42,7 @@ const validLang = (lang) => {
  * Generates boiler plate 
  */
 const generate = (folderPath, ques, lang) => {
-  let files = [ques.toString() +'.'+ getExtension(lang), 'input.txt', 'output.txt'];
+  let files = [ques.toString() +'.'+ languages[lang], 'input.txt', 'output.txt'];
   let data = [template[lang] != undefined ? template[lang] : '', '', ''];
   fs.mkdirSync(folderPath);
   for(let i = 0; i<files.length; i++) {
