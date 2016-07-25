@@ -4,12 +4,13 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-25 12:38:30
+* @Last Modified time: 2016-07-25 12:45:32
 */
 
 'use strict';
 
 const yargs = require('yargs');
+const inquirer = require('inquirer');
 const fs = require('fs');
 const ora = require('ora');
 const chalk = require('chalk');
@@ -19,7 +20,8 @@ const Table = require('cli-table');
 const template = require('./template');
 const languages = require('./languages');
 
-const LANG_ERR = 'Not a valid languege. Please run `hbg config -l` to get the list of languages.';
+const LANG_ERR = 'Not a valid language. Please run `hbg config -l` to get the list of languages.';
+const QUES_ERR = 'Not a valid question number. Please enter a number.';
 
 /**
  * Returns full path of file
@@ -62,21 +64,25 @@ const argv = yargs
   .command('gen', 'Generate boilerplate', (yargs) => {
     const argv = yargs
       .usage('Usage: $0 gen <options>')
-      .demand(['q'])
       .alias('l', 'lang').describe('l', 'Language. Change `config` for default')
       .alias('q', 'ques').describe('q', 'Number of questions. Change `config` for default')
       .example('sudo $0 gen -l cpp -q 4')
       .argv;
-    let { q } = argv;
-    let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
-    if(validLang(lang)){
-      for(let i = 1; i <= q; i++) {
+    let lang = (argv.l == undefined ? config['default_lang'] : argv.l).toLowerCase();
+    let ques = (argv.ques == undefined ? config['default_ques'] : argv.ques);
+    if(validLang(lang) && ques !== undefined){
+      for(let i = 1; i <= ques; i++) {
         let folderPath = getPath(process.cwd(), i.toString());
         generate(folderPath, i, lang);
       }
     }
     else{
-      console.log(chalk.red(LANG_ERR));
+      if(!validLang(lang)){
+        console.log(chalk.red(LANG_ERR));
+      }
+      else{
+        console.log(chalk.red(QUES_ERR));
+      }
     }
   })
   .command('add', 'Add default template', (yargs) => {
@@ -113,7 +119,7 @@ const argv = yargs
         colWidths: [20, 20]
       });
       for(let name in languages){
-        table.push([name, languages[name]]);
+        table.push([chalk.cyan(name), chalk.green(languages[name])]);
       }
       spinner.stop();
       console.log(table.toString());
