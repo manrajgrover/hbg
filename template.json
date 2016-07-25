@@ -1,1 +1,3 @@
-{ }
+{
+  "cpp": "// By manrajsingh\n#include <bits/stdc++.h>\nusing namespace std;\n#define ll long long\n#define d1(a)cout<<#a<<\": \"<<a<<\"\\n\";\n#define d2(a,b)cout<<#a<<\": \"<<a<<\" , \"<<#b<<\": \"<<b<<\"\\n\";\n#define d3(a,b,c)cout<<#a<<\": \"<<a<<\" , \"<<#b<<\": \"<<b<<\" , \"<<#c<<\": \"<<c<<\"\\n\";\n#define d4(a,b,c,d)cout<<#a<<\": \"<<a<<\" , \"<<#b<<\": \"<<b<<\" , \"<<#c<<\": \"<<c<<\" , \"<<#d<<\": \"<<d<<\"\\n\";\n\nint main() {\n\t\n\treturn 0;\n}\n"
+}

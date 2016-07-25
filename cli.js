@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-25 11:10:44
+* @Last Modified time: 2016-07-25 11:15:39
 */
 
 'use strict';
@@ -52,7 +52,8 @@ const generate = (folderPath, ques, lang) => {
   let files = [ques.toString() +'.'+ getExtension(lang), 'input.txt', 'output.txt'];
   fs.mkdirSync(folderPath);
   for(let i = 0; i<files.length; i++) {
-    fs.writeFileSync(getPath(folderPath, files[i]), '', 'utf8');
+    let data = template[lang] != undefined ? template[lang] : '';
+    fs.writeFileSync(getPath(folderPath, files[i]), data, 'utf8');
   }
 }
 
@@ -64,7 +65,7 @@ const argv = yargs
       .demand(['q'])
       .alias('l', 'lang').describe('l', 'Language. Change `config` for default')
       .alias('q', 'ques').describe('q', 'Number of questions')
-      .example('sudo $0 gen -l cpp -q 4') // To-do
+      .example('sudo $0 gen -l cpp -q 4')
       .argv;
     let { q } = argv;
     let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
@@ -84,7 +85,7 @@ const argv = yargs
       .demand(['t', 'l'])
       .alias('t', 'template').describe('t', 'Path to the template file')
       .alias('l', 'lang').describe('l', 'Language')
-      .example('$0 add -t test/template.cpp -l cpp') // To-do
+      .example('$0 add -t test/template.cpp -l cpp')
       .argv;
     let { t } = argv;
     let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
@@ -102,7 +103,7 @@ const argv = yargs
     const argv = yargs
       .usage('Usage: $0 config')
       .alias('l', 'list').describe('l', 'List language and their code').boolean('l')
-      .example('$0') // To-do
+      .example('$0')
       .argv;
 
     if (argv.list){
