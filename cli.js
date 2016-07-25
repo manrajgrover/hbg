@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-25 11:15:39
+* @Last Modified time: 2016-07-25 12:38:30
 */
 
 'use strict';
@@ -64,7 +64,7 @@ const argv = yargs
       .usage('Usage: $0 gen <options>')
       .demand(['q'])
       .alias('l', 'lang').describe('l', 'Language. Change `config` for default')
-      .alias('q', 'ques').describe('q', 'Number of questions')
+      .alias('q', 'ques').describe('q', 'Number of questions. Change `config` for default')
       .example('sudo $0 gen -l cpp -q 4')
       .argv;
     let { q } = argv;
@@ -84,8 +84,8 @@ const argv = yargs
       .usage('Usage: $0 add <options>')
       .demand(['t', 'l'])
       .alias('t', 'template').describe('t', 'Path to the template file')
-      .alias('l', 'lang').describe('l', 'Language')
-      .example('$0 add -t test/template.cpp -l cpp')
+      .alias('l', 'lang').describe('l', 'Language chosen')
+      .example('sudo $0 add -t test/template.cpp -l cpp')
       .argv;
     let { t } = argv;
     let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
@@ -102,8 +102,8 @@ const argv = yargs
   .command('config', 'Change config file', (yargs) => {
     const argv = yargs
       .usage('Usage: $0 config')
-      .alias('l', 'list').describe('l', 'List language and their code').boolean('l')
-      .example('$0')
+      .alias('l', 'list').describe('l', 'List language and their extension').boolean('l')
+      .example('sudo $0 config -l')
       .argv;
 
     if (argv.list){
@@ -125,11 +125,18 @@ const argv = yargs
         message: 'Enter default language code <Leave blank in case unchanged>'
       } , {
         type: 'input',
-        name: 'questions',
+        name: 'default_ques',
         message: 'Enter default number of questions <Leave blank in case unchanged>'
       }];
       inquirer.prompt(questions).then((answers) => {
-
+        var obj = config;
+        if (answers.default_lang !== ''){
+          obj.default_lang = answers.default_lang;
+        }
+        if (answers.default_ques !== ''){
+          obj.default_ques = answers.default_ques;
+        }
+        fs.writeFileSync(__dirname+'/config.json', JSON.stringify(obj, null, 2), 'utf8');
       });
     }
   })
