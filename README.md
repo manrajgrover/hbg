@@ -49,6 +49,7 @@ Examples:
 ```
 
 ### Command `config`
+Run `$ sudo hbg config` to change configuration of your installation. This includes default language and default questions.
 
 ```
 Usage: hbg config
@@ -61,3 +62,4 @@ Examples:
   sudo hbg config -l
 
 ```
+
