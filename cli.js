@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-25 13:23:26
+* @Last Modified time: 2016-07-25 13:44:26
 */
 
 'use strict';
@@ -57,7 +57,7 @@ const argv = yargs
       .usage('Usage: $0 gen <options>')
       .alias('l', 'lang').describe('l', 'Language. Change `config` for default')
       .alias('q', 'ques').describe('q', 'Number of questions. Change `config` for default')
-      .example('sudo $0 gen -l cpp -q 4')
+      .example('$ sudo $0 gen -l cpp -q 4')
       .argv;
     const spinner = ora('Generating Boilerplate').start();
     let lang = (argv.l == undefined ? config['default_lang'] : argv.l);
@@ -89,7 +89,7 @@ const argv = yargs
       .demand(['t', 'l'])
       .alias('t', 'template').describe('t', 'Path to the template file')
       .alias('l', 'lang').describe('l', 'Language chosen')
-      .example('sudo $0 add -t test/template.cpp -l cpp')
+      .example('$ sudo $0 add -t test/template.cpp -l cpp')
       .argv;
     const spinner = ora('Adding template').start();
     let { t } = argv;
@@ -109,9 +109,9 @@ const argv = yargs
   })
   .command('config', 'Change config file', (yargs) => {
     const argv = yargs
-      .usage('Usage: $0 config')
+      .usage('Usage: sudo $0 config')
       .alias('l', 'list').describe('l', 'List language and their extension').boolean('l')
-      .example('sudo $0 config -l')
+      .example('$ sudo $0 config -l')
       .argv;
 
     if (argv.list){
