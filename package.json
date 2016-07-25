@@ -1,6 +1,6 @@
 {
   "name": "hbg",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "CLI for generating boilerplate for coding competitions",
   "bin": {
     "hbg": "cli.js"
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ManrajGrover/hacker-boilerplate-generator.git"
+    "url": "git+https://github.com/ManrajGrover/hbg.git"
   },
   "keywords": [
     "hacker",
@@ -28,9 +28,9 @@
   "author": "Manraj Singh <manrajsinghgrover@gmail.com> (http://manrajsingh.in)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ManrajGrover/hacker-boilerplate-generator/issues"
+    "url": "https://github.com/ManrajGrover/hbg/issues"
   },
-  "homepage": "https://github.com/ManrajGrover/hacker-boilerplate-generator#readme",
+  "homepage": "https://github.com/ManrajGrover/hbg#readme",
   "dependencies": {
     "chalk": "1.1.3",
     "cli-table": "0.3.1",
