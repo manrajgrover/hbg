@@ -14,7 +14,7 @@ Commands:
   config  Change config file
 
 Options:
-  -h, --help  Show help                                                [boolean]
+  -h, --help  Show help                                         [boolean]
 
 ```
 
@@ -24,12 +24,12 @@ Options:
 Usage: hbg gen <options>
 
 Options:
-  -h, --help  Show help                                                [boolean]
+  -h, --help  Show help                                         [boolean]
   -l, --lang  Language. Change `config` for default
   -q, --ques  Number of questions. Change `config` for default
 
 Examples:
-  sudo hbg gen -l cpp -q 4
+  $ sudo hbg gen -l cpp -q 4
 
 ```
 
@@ -39,12 +39,12 @@ Examples:
 Usage: hbg add <options>
 
 Options:
-  -h, --help      Show help                                            [boolean]
-  -t, --template  Path to the template file                           [required]
-  -l, --lang      Language chosen                                     [required]
+  -h, --help      Show help                                     [boolean]
+  -t, --template  Path to the template file                    [required]
+  -l, --lang      Language chosen                              [required]
 
 Examples:
-  sudo hbg add -t test/template.cpp -l cpp
+  $ sudo hbg add -t test/template.cpp -l cpp
 
 ```
 
@@ -55,11 +55,11 @@ Run `$ sudo hbg config` to change configuration of your installation. This inclu
 Usage: hbg config
 
 Options:
-  -h, --help  Show help                                                [boolean]
-  -l, --list  List language and their extension                        [boolean]
+  -h, --help  Show help                                        [boolean]
+  -l, --list  List language and their extension                [boolean]
 
 Examples:
-  sudo hbg config -l
+  $ sudo hbg config -l
 
 ```
 
