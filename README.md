@@ -63,3 +63,5 @@ Examples:
 
 ```
 
+## License
+[MIT](https://github.com/ManrajGrover/hbg/blob/master/LICENSE) © [Manraj Singh](https://github.com/ManrajGrover)
