@@ -4,7 +4,7 @@
 * @Author: Manraj Singh
 * @Date:   2016-07-10 20:00:15
 * @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-25 12:45:32
+* @Last Modified time: 2016-07-25 13:04:28
 */
 
 'use strict';
@@ -22,6 +22,7 @@ const languages = require('./languages');
 
 const LANG_ERR = 'Not a valid language. Please run `hbg config -l` to get the list of languages.';
 const QUES_ERR = 'Not a valid question number. Please enter a number.';
+const TASK_COMPL = 'Task completed. Support project at https://github.com/ManrajGrover/hbg.'
 
 /**
  * Returns full path of file
@@ -52,10 +53,10 @@ const validLang = (lang) => {
  */
 const generate = (folderPath, ques, lang) => {
   let files = [ques.toString() +'.'+ getExtension(lang), 'input.txt', 'output.txt'];
+  let data = [template[lang] != undefined ? template[lang] : '', '', ''];
   fs.mkdirSync(folderPath);
   for(let i = 0; i<files.length; i++) {
-    let data = template[lang] != undefined ? template[lang] : '';
-    fs.writeFileSync(getPath(folderPath, files[i]), data, 'utf8');
+    fs.writeFileSync(getPath(folderPath, files[i]), data[i], 'utf8');
   }
 }
 
@@ -68,15 +69,22 @@ const argv = yargs
       .alias('q', 'ques').describe('q', 'Number of questions. Change `config` for default')
       .example('sudo $0 gen -l cpp -q 4')
       .argv;
-    let lang = (argv.l == undefined ? config['default_lang'] : argv.l).toLowerCase();
+    const spinner = ora('Generating Boilerplate').start();
+    let lang = (argv.l == undefined ? config['default_lang'] : argv.l);
+    if(lang != undefined){
+      lang = lang.toLowerCase();
+    }
     let ques = (argv.ques == undefined ? config['default_ques'] : argv.ques);
     if(validLang(lang) && ques !== undefined){
       for(let i = 1; i <= ques; i++) {
         let folderPath = getPath(process.cwd(), i.toString());
         generate(folderPath, i, lang);
       }
+      spinner.stop();
+      console.log(chalk.green(TASK_COMPL));
     }
     else{
+      spinner.stop();
       if(!validLang(lang)){
         console.log(chalk.red(LANG_ERR));
       }
@@ -93,6 +101,7 @@ const argv = yargs
       .alias('l', 'lang').describe('l', 'Language chosen')
       .example('sudo $0 add -t test/template.cpp -l cpp')
       .argv;
+    const spinner = ora('Adding template').start();
     let { t } = argv;
     let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
     if(validLang(lang)) {
@@ -100,8 +109,11 @@ const argv = yargs
       let data = fs.readFileSync(getPath(process.cwd(), t), 'utf8');
       obj[lang] = data;
       fs.writeFileSync(getPath(__dirname, 'template.json'), JSON.stringify(obj, null, 2), 'utf8');
+      spinner.stop();
+      console.log(chalk.green(TASK_COMPL));
     }
     else{
+      spinner.stop();
       console.log(chalk.red(LANG_ERR));
     }
   })
@@ -135,6 +147,7 @@ const argv = yargs
         message: 'Enter default number of questions <Leave blank in case unchanged>'
       }];
       inquirer.prompt(questions).then((answers) => {
+        const spinner = ora('Saving').start();
         var obj = config;
         if (answers.default_lang !== ''){
           obj.default_lang = answers.default_lang;
@@ -143,6 +156,8 @@ const argv = yargs
           obj.default_ques = answers.default_ques;
         }
         fs.writeFileSync(__dirname+'/config.json', JSON.stringify(obj, null, 2), 'utf8');
+        spinner.stop();
+        console.log(chalk.green(TASK_COMPL));
       });
     }
   })
