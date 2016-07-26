@@ -1,4 +1,5 @@
 # hbg (Hacker Boilerplate Generator)
+[![npm version](https://badge.fury.io/js/hbg.svg)](https://www.npmjs.com/package/hbg) [![npm](https://img.shields.io/npm/dt/hbg.svg?maxAge=2592000)](https://www.npmjs.com/package/hbg) ![awesome](https://img.shields.io/badge/awesome-yes-green.svg)
 > CLI for generating boilerplate for coding competitions
 
 ## Usage
