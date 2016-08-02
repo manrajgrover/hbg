@@ -92,11 +92,10 @@ const argv = yargs
       .example('$ sudo $0 add -t test/template.cpp -l cpp')
       .argv;
     const spinner = ora('Adding template').start();
-    let { t } = argv;
     let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
     if(validLang(lang)) {
       let obj = template;
-      let data = fs.readFileSync(getPath(process.cwd(), t), 'utf8');
+      let data = fs.readFileSync(getPath(process.cwd(), argv.t), 'utf8');
       obj[lang] = data;
       fs.writeFileSync(getPath(__dirname, 'template.json'), JSON.stringify(obj, null, 2), 'utf8');
       spinner.stop();
