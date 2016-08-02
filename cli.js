@@ -51,13 +51,13 @@ const generate = (folderPath, ques, lang) => {
 }
 
 const argv = yargs
-  .usage('sudo $0 <command>')
+  .usage('sudo hbg <command>')
   .command('gen', 'Generate boilerplate', (yargs) => {
     const argv = yargs
-      .usage('Usage: $0 gen <options>')
+      .usage('Usage: hbg gen <options>')
       .alias('l', 'lang').describe('l', 'Language. Change `config` for default')
       .alias('q', 'ques').describe('q', 'Number of questions. Change `config` for default')
-      .example('$ sudo $0 gen -l cpp -q 4')
+      .example('$ sudo hbg gen -l cpp -q 4')
       .argv;
     const spinner = ora('Generating Boilerplate').start();
     let lang = (argv.l == undefined ? config['default_lang'] : argv.l);
@@ -85,11 +85,11 @@ const argv = yargs
   })
   .command('add', 'Add default template', (yargs) => {
     const argv = yargs
-      .usage('Usage: $0 add <options>')
+      .usage('Usage: hbg add <options>')
       .demand(['t', 'l'])
       .alias('t', 'template').describe('t', 'Path to the template file')
       .alias('l', 'lang').describe('l', 'Language chosen')
-      .example('$ sudo $0 add -t test/template.cpp -l cpp')
+      .example('$ sudo hbg add -t test/template.cpp -l cpp')
       .argv;
     const spinner = ora('Adding template').start();
     let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
@@ -108,9 +108,9 @@ const argv = yargs
   })
   .command('config', 'Change config file', (yargs) => {
     const argv = yargs
-      .usage('Usage: sudo $0 config')
+      .usage('Usage: sudo hbg config')
       .alias('l', 'list').describe('l', 'List language and their extension').boolean('l')
-      .example('$ sudo $0 config -l')
+      .example('$ sudo hbg config -l')
       .argv;
 
     if (argv.list){
