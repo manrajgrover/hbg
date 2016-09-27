@@ -70,9 +70,5 @@ Examples:
 
 ```
 
-## Note
-
-Some of the commands may require root permission. Please check before opening an issue.
-
 ## License
 [MIT](https://github.com/ManrajGrover/hbg/blob/master/LICENSE) © [Manraj Singh](https://github.com/ManrajGrover)
