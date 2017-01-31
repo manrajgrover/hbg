@@ -1,12 +1,5 @@
 #!/usr/bin/env node
 
-/*
-* @Author: Manraj Singh
-* @Date:   2016-07-10 20:00:15
-* @Last Modified by:   Manraj Singh
-* @Last Modified time: 2016-07-25 13:44:26
-*/
-
 'use strict';
 
 const yargs = require('yargs');
