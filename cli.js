@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-'use strict';
-
 const yargs = require('yargs');
 const inquirer = require('inquirer');
 const fs = require('fs');
@@ -13,65 +11,55 @@ const Table = require('cli-table');
 const template = require('./template');
 const languages = require('./languages');
 
-const LANG_ERR = 'Not a valid language. Please run `hbg config -l` to get the list of languages.';
-const QUES_ERR = 'Not a valid question number. Please enter a number.';
-const TASK_COMPL = 'Task completed. Support project at https://github.com/ManrajGrover/hbg.'
+const { LANG_ERR, QUES_ERR, TASK_COMPL } = require('./constants');
 
 /**
  * Returns full path of file
  */
-const getPath = (folderPath, name) => {
-  return path.resolve(folderPath, name);
-}
+const getPath = (folderPath, name) => path.resolve(folderPath, name);
 
 /**
- * Returns if language is valid or not
- */
-const validLang = (lang) => {
-  return languages[lang] == undefined ? false : true;
-}
-
-/**
- * Generates boiler plate 
+ * Generates boiler plate
  */
 const generate = (folderPath, ques, lang) => {
-  let files = [ques.toString() +'.'+ languages[lang], 'input.txt', 'output.txt'];
-  let data = [template[lang] != undefined ? template[lang] : '', '', ''];
+  const files = [`${ques}.${languages[lang]}`, 'input.txt', 'output.txt'];
+  const data = [template[lang] ? '' : template[lang], '', ''];
   fs.mkdirSync(folderPath);
-  for(let i = 0; i<files.length; i++) {
+  for (let i = 0; i < files.length; i += 1) {
     fs.writeFileSync(getPath(folderPath, files[i]), data[i], 'utf8');
   }
-}
+};
 
 const argv = yargs
   .usage('sudo hbg <command>')
   .command('gen', 'Generate boilerplate', (yargs) => {
     const argv = yargs
       .usage('Usage: hbg gen <options>')
-      .alias('l', 'lang').describe('l', 'Language. Change `config` for default')
-      .alias('q', 'ques').describe('q', 'Number of questions. Change `config` for default')
+      .alias('l', 'lang')
+        .describe('l', 'Language. Change `config` for default')
+      .alias('q', 'ques')
+        .describe('q', 'Number of questions. Change `config` for default')
       .example('$ sudo hbg gen -l cpp -q 4')
       .argv;
     const spinner = ora('Generating Boilerplate').start();
-    let lang = (argv.l == undefined ? config['default_lang'] : argv.l);
-    if(lang != undefined){
+    let lang = (argv.l ? config.default_lang : argv.l);
+    if (lang !== undefined) {
       lang = lang.toLowerCase();
     }
-    let ques = (argv.ques == undefined ? config['default_ques'] : argv.ques);
-    if(validLang(lang) && ques !== undefined){
-      for(let i = 1; i <= ques; i++) {
-        let folderPath = getPath(process.cwd(), i.toString());
+
+    const ques = (argv.ques ? argv.ques : config.default_ques);
+    if (languages[lang] && ques !== undefined) {
+      for (let i = 1; i <= ques; i += 1) {
+        const folderPath = getPath(process.cwd(), i.toString());
         generate(folderPath, i, lang);
       }
       spinner.stop();
       console.log(chalk.green(TASK_COMPL));
-    }
-    else{
+    } else {
       spinner.stop();
-      if(!validLang(lang)){
+      if (!languages[lang]) {
         console.log(chalk.red(LANG_ERR));
-      }
-      else{
+      } else {
         console.log(chalk.red(QUES_ERR));
       }
     }
@@ -80,21 +68,22 @@ const argv = yargs
     const argv = yargs
       .usage('Usage: hbg add <options>')
       .demand(['t', 'l'])
-      .alias('t', 'template').describe('t', 'Path to the template file')
-      .alias('l', 'lang').describe('l', 'Language chosen')
+      .alias('t', 'template')
+        .describe('t', 'Path to the template file')
+      .alias('l', 'lang')
+        .describe('l', 'Language chosen')
       .example('$ sudo hbg add -t test/template.cpp -l cpp')
       .argv;
     const spinner = ora('Adding template').start();
-    let lang = (argv.l == undefined ? config['lang'] : argv.l).toLowerCase();
-    if(validLang(lang)) {
-      let obj = template;
-      let data = fs.readFileSync(getPath(process.cwd(), argv.t), 'utf8');
+    const lang = (argv.l ? argv.l : config.lang).toLowerCase();
+    if (languages[lang]) {
+      const obj = template;
+      const data = fs.readFileSync(getPath(process.cwd(), argv.t), 'utf8');
       obj[lang] = data;
       fs.writeFileSync(getPath(__dirname, 'template.json'), JSON.stringify(obj, null, 2), 'utf8');
       spinner.stop();
       console.log(chalk.green(TASK_COMPL));
-    }
-    else{
+    } else {
       spinner.stop();
       console.log(chalk.red(LANG_ERR));
     }
@@ -106,38 +95,37 @@ const argv = yargs
       .example('$ sudo hbg config -l')
       .argv;
 
-    if (argv.list){
+    if (argv.list) {
       const spinner = ora('Getting languages').start();
       let table = new Table({
         head: ['Language', 'File Extension'],
-        colWidths: [20, 20]
+        colWidths: [20, 20],
       });
-      for(let name in languages){
+      for (let name in languages) {
         table.push([chalk.cyan(name), chalk.green(languages[name])]);
       }
       spinner.stop();
       console.log(table.toString());
-    }
-    else {
+    } else {
       const questions = [{
         type: 'input',
         name: 'default_lang',
-        message: 'Enter default language code <Leave blank in case unchanged>'
-      } , {
+        message: 'Enter default language code <Leave blank in case unchanged>',
+      }, {
         type: 'input',
         name: 'default_ques',
-        message: 'Enter default number of questions <Leave blank in case unchanged>'
+        message: 'Enter default number of questions <Leave blank in case unchanged>',
       }];
       inquirer.prompt(questions).then((answers) => {
         const spinner = ora('Saving').start();
-        var obj = config;
-        if (answers.default_lang !== ''){
+        let obj = config;
+        if (answers.default_lang !== '') {
           obj.default_lang = answers.default_lang;
         }
-        if (answers.default_ques !== ''){
+        if (answers.default_ques !== '') {
           obj.default_ques = answers.default_ques;
         }
-        fs.writeFileSync(__dirname+'/config.json', JSON.stringify(obj, null, 2), 'utf8');
+        fs.writeFileSync(getPath(__dirname, 'config.json'), JSON.stringify(obj, null, 2), 'utf8');
         spinner.stop();
         console.log(chalk.green(TASK_COMPL));
       });
