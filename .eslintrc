@@ -1,6 +1,7 @@
 {
   "extends": "airbnb",
   "rules": {
-  	
+  	"guard-for-in": "off",
+  	"no-restricted-syntax": "off"
   }
 }
