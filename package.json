@@ -6,7 +6,7 @@
     "hbg": "cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint cli.js"
   },
   "repository": {
     "type": "git",
