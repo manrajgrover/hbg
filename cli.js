@@ -30,6 +30,8 @@ const generate = (folderPath, ques, lang) => {
   }
 };
 
+/* eslint-disable no-unused-vars, no-console, no-shadow */
+
 const argv = yargs
   .usage('sudo hbg <command>')
   .command('gen', 'Generate boilerplate', (yargs) => {
@@ -98,13 +100,15 @@ const argv = yargs
 
     if (argv.list) {
       const spinner = ora('Getting languages').start();
-      let table = new Table({
+      const table = new Table({
         head: ['Language', 'File Extension'],
         colWidths: [20, 20],
       });
-      for (let name in languages) {
+
+      for (const name in languages) {
         table.push([chalk.cyan(name), chalk.green(languages[name])]);
       }
+
       spinner.stop();
       console.log(table.toString());
     } else {
@@ -119,7 +123,8 @@ const argv = yargs
       }];
       inquirer.prompt(questions).then((answers) => {
         const spinner = ora('Saving').start();
-        let obj = config;
+        const obj = config;
+
         if (answers.default_lang !== '') {
           obj.default_lang = answers.default_lang;
         }
@@ -135,3 +140,5 @@ const argv = yargs
   .help('h')
   .alias('h', 'help')
   .argv;
+
+/* eslint-enable no-unused-vars, no-console */
