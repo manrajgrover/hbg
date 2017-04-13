@@ -23,7 +23,7 @@ const getPath = (folderPath, name) => path.resolve(folderPath, name);
  */
 const generate = (folderPath, ques, lang) => {
   const files = [`${ques}.${languages[lang]}`, 'input.txt', 'output.txt'];
-  const data = [template[lang] ? '' : template[lang], '', ''];
+  const data = [template[lang] === undefined ? '' : template[lang], '', ''];
   fs.mkdirSync(folderPath);
   for (let i = 0; i < files.length; i += 1) {
     fs.writeFileSync(getPath(folderPath, files[i]), data[i], 'utf8');
@@ -42,7 +42,8 @@ const argv = yargs
       .example('$ sudo hbg gen -l cpp -q 4')
       .argv;
     const spinner = ora('Generating Boilerplate').start();
-    let lang = (argv.l ? config.default_lang : argv.l);
+
+    let lang = (argv.l === undefined ? config.default_lang : argv.l);
     if (lang !== undefined) {
       lang = lang.toLowerCase();
     }
