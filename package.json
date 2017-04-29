@@ -6,7 +6,7 @@
     "hbg": "cli.js"
   },
   "scripts": {
-    "lint": "eslint cli.js"
+    "lint": "eslint ./cli.js"
   },
   "repository": {
     "type": "git",
