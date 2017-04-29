@@ -4,4 +4,4 @@ node_js:
 install:
   - npm install --loglevel=error
 script:
-- npm run lint
+  - npm run lint
