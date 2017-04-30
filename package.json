@@ -2,11 +2,11 @@
   "name": "hbg",
   "version": "0.1.3",
   "description": "CLI for generating boilerplate for coding competitions",
+  "scripts": {
+    "lint": "eslint cli.js constants.js"
+  },
   "bin": {
     "hbg": "cli.js"
-  },
-  "scripts": {
-    "lint": "eslint ./cli.js"
   },
   "repository": {
     "type": "git",
