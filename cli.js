@@ -30,8 +30,6 @@ const generate = (folderPath, ques, lang) => {
   }
 };
 
-/* eslint-disable no-unused-vars, no-console, no-shadow */
-
 const argv = yargs
   .usage('sudo hbg <command>')
   .command('gen', 'Generate boilerplate', (yargs) => {
@@ -140,5 +138,3 @@ const argv = yargs
   .help('h')
   .alias('h', 'help')
   .argv;
-
-/* eslint-enable no-unused-vars, no-console */
