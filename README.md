@@ -4,7 +4,7 @@
 
 ## Install
 
-```
+```sh
 $ npm install -g hbg
 ```
 
@@ -12,7 +12,7 @@ $ npm install -g hbg
 
 ### Commands available
 
-```
+```sh
 sudo hbg <command>
 
 Commands:
@@ -27,7 +27,7 @@ Options:
 
 ### Command `gen`
 
-```
+```sh
 Usage: hbg gen <options>
 
 Options:
@@ -42,7 +42,7 @@ Examples:
 
 ### Command `add`
 
-```
+```sh
 Usage: hbg add <options>
 
 Options:
@@ -58,7 +58,7 @@ Examples:
 ### Command `config`
 Run `$ sudo hbg config` to change configuration of your installation. This includes default language and default questions.
 
-```
+```sh
 Usage: hbg config
 
 Options:
