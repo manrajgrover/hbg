@@ -1,5 +1,5 @@
 # hbg (Hacker Boilerplate Generator)
-[![Build Status](https://travis-ci.org/ManrajGrover/hbg.svg?branch=master)](https://travis-ci.org/ManrajGrover/hbg) [![Build status](https://ci.appveyor.com/api/projects/status/7vklh6s6wglvwgfk?svg=true)](https://ci.appveyor.com/project/ManrajGrover/hbg) [![npm version](https://badge.fury.io/js/hbg.svg)](https://www.npmjs.com/package/hbg) [![npm](https://img.shields.io/npm/dt/hbg.svg?maxAge=2592000)](https://www.npmjs.com/package/hbg) ![awesome](https://img.shields.io/badge/awesome-yes-green.svg)
+[![Build Status](https://travis-ci.org/manrajgrover/hbg.svg?branch=master)](https://travis-ci.org/manrajgrover/hbg) [![Build status](https://ci.appveyor.com/api/projects/status/7vklh6s6wglvwgfk?svg=true)](https://ci.appveyor.com/project/manrajgrover/hbg) [![npm version](https://badge.fury.io/js/hbg.svg)](https://www.npmjs.com/package/hbg) [![npm](https://img.shields.io/npm/dt/hbg.svg?maxAge=2592000)](https://www.npmjs.com/package/hbg) ![awesome](https://img.shields.io/badge/awesome-yes-green.svg)
 > CLI for generating boilerplate for coding competitions
 
 ## Install
@@ -71,4 +71,4 @@ Examples:
 ```
 
 ## License
-[MIT](https://github.com/ManrajGrover/hbg/blob/master/LICENSE) © [Manraj Singh](https://github.com/ManrajGrover)
+[MIT](https://github.com/manrajgrover/hbg/blob/master/LICENSE) © [Manraj Singh](https://github.com/manrajgrover)
